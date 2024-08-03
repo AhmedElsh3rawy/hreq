@@ -16,28 +16,28 @@ res=""
 
 case $req in
 GET)
-	res=$(curl -sS "$url")
-	;;
+  res=$(curl -sS "$url")
+  ;;
 
 POST)
-	echo "POST"
-	;;
+  res=$(curl -sSX POST -H "Content-Type: application/json" -d "$body" "$url")
+  ;;
 PUT)
-	echo "PUT"
-	;;
+  res=$(curl -sSX PUT -H "Content-Type: application/json" -d "$body" "$url")
+  ;;
 PATCH)
-	echo "PATCH"
-	;;
+  res=$(curl -sSX PATCH -H "Content-Type: application/json" -d "$body" "$url")
+  ;;
 DELETE)
-	echo "DELETE"
-	;;
+  res=$(curl -sSX DELETE "$url")
+  ;;
 *)
-	echo "Unknown method: $method"
-	;;
+  echo "Unknown method: $method"
+  ;;
 esac
 
 if [[ "$content_type" == *"application/json"* ]]; then
-	echo "${res}" | jq
+  echo "${res}" | jq
 else
-	echo "${res}"
+  echo "${res}"
 fi
